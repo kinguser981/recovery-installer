@@ -1,0 +1,41 @@
+name: Recovery-Installer
+
+on:
+  workflow_dispatch:
+   
+jobs:
+  build:
+    name: make zip and release ${{ github.actor }}
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
+    steps:
+    - name: Check Out
+      uses: actions/checkout@v3
+
+    - name: Clone and Build
+      run: |
+        git clone https://github.com/kinguser981/recovery-installer.git
+        cd recovery-installer
+        rm README.md
+        zip -r recovery-installer *
+        echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+    - name: Set Build Date
+      run: |
+        echo "BUILD_DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
+
+    - name: Release files
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          OneUISounds/OneUISounds_Magisk.zip
+        name: recovery-installer ${{ env.BUILD_DATE }}
+        tag_name: ${{ github.run_id }}
+        body: |
+          Changelog:
+                    V1.1
+        continue-on-error: true
