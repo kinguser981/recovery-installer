@@ -32,7 +32,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          OneUISounds/OneUISounds_Magisk.zip
+          recovery-installer/recovery-installer.zip
         name: recovery-installer ${{ env.BUILD_DATE }}
         tag_name: ${{ github.run_id }}
         body: |
