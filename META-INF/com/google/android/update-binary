@@ -1,6 +1,6 @@
 #!/sbin/sh
-# TWRP A/B Installer Backend
-# by osm0sis, Dees_Troy and topjohnwu
+# OrangeFox A/B Installer Backend
+# 
 
 OUTFD=/proc/self/fd/$2;
 ZIPFILE="$3";
@@ -19,10 +19,12 @@ BOOTMODE=false;
 ps | grep zygote | grep -v grep >/dev/null && BOOTMODE=true;
 $BOOTMODE || ps -A 2>/dev/null | grep zygote | grep -v grep >/dev/null && BOOTMODE=true;
 
-ui_print "########################################";
-ui_print "#    TWRP installer for A/B devices    #";
-ui_print "########################################";
-ui_print " ";
+ui_print "*************************************"
+ui_print "*** |OrangeFox Recovery Project|  ***"
+ui_print "***   |By Samuel Kendall|         ***"
+ui_print "***    | Installer V:1|           ***"
+ui_print "*************************************"
+ui_print " "
 
 # /dev/tmp is safe for both booted and recovery installs
 tmp=/dev/tmp/twrp-install;
